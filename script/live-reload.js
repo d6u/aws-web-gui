@@ -10,44 +10,50 @@
 // BrowserSync - Watch and reload jade, css, browser js file.
 //               When CSS was changed, changes will be injected without refresh.
 
-const config = require('config');
-const nodemon = require('nodemon');
+const config      = require('config');
+const nodemon     = require('nodemon');
 const browserSync = require('browser-sync');
-const livereload = require('livereload');
+const livereload  = require('livereload');
+
+const livereloadServer = livereload.createServer();
+
+const nodemonLogPrefix = '[\u001b[34mNodemon\u001b[39m]';
+const livereloadLogPrefix = '[\u001b[34mLive Reload\u001b[39m]';
+
+let nodemonChangedFiles = [];
 
 browserSync({
   ui: {
-    port: 3001,
+    port: config.get('browserSync.uiPort'),
     weinre: {
-      port: 8080
+      port: config.get('browserSync.weinrePort')
     }
   },
-  files: ['templates/**/*.jade', 'templates/**/*.html', 'public/**/*'],
+  files: ['public/**'],
   server: false,
   proxy: config.get('web.hostname') + ':' + config.get('web.port'),
-  port: 3002,
+  port: config.get('browserSync.port'),
   open: false,
   reloadDelay: 200
 });
 
-const livereloadServer = livereload.createServer();
-
-let nodemonChangedFiles;
-const nodemonLogPrefix = '[\u001b[34mNodemon\u001b[39m]';
-
-nodemon({
-  watch: ['src-server/**/*', 'config/*'],
-  script: 'src-server/index.js',
-  ext: 'js',
-  stdout: false
-})
+nodemon(
+  {
+    watch: ['src-server/**/*', 'config/*'],
+    script: 'src-server/index.js',
+    ext: 'js',
+    stdout: false
+  })
   .on('readable', function () {
     this.stdout.on('data', function(chunk) {
       process.stdout.write(chunk);
+
       if (/^Web server started/.test(chunk)) {
-        livereloadServer.refresh('');
+        livereloadServer.refresh(nodemonChangedFiles[0]);
         // In case livereload doesn't work in your browser, uncomment below line
         // browserSync.reload(nodemonChangedFiles);
+
+        console.log(`${livereloadLogPrefix} reload file ${nodemonChangedFiles[0]}`);
       }
     });
 
@@ -57,8 +63,10 @@ nodemon({
   })
   .on('restart', function (files) {
     nodemonChangedFiles = files;
-    console.log(nodemonLogPrefix + ' App restarted due to');
-    files.forEach(function (file) {
-      console.log(nodemonLogPrefix + ' \t' + file);
-    });
+
+    console.log(`${nodemonLogPrefix} App restarted due to:`);
+
+    for (let i = 0; i < files.length; i++) {
+      console.log(`${nodemonLogPrefix} ${files[i]}`);
+    }
   });
