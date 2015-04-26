@@ -1,0 +1,18 @@
+{
+  "name": "aws-web-gui",
+  "version": "1.0.0",
+  "description": "GUI for Visualize AWS Resources",
+  "main": "index.js",
+  "scripts": {
+    "start": "iojs --harmony src-server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daiwei Lu <daiweilu123@gmail.com> (http://daiwei.lu)",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1.25",
+    "config": "^1.12.0",
+    "express": "^4.12.3",
+    "morgan": "^1.5.2"
+  }
+}
