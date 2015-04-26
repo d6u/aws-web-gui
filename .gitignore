@@ -1,7 +1,7 @@
 ### Node ###
 # Logs
 logs
-*.log
+*.log*
 
 # Runtime data
 pids
@@ -35,4 +35,5 @@ bower_components
 .bower-tmp
 
 ### Project ###
-config/local*
+/config/local*
+/public

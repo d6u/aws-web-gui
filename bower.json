@@ -1,0 +1,14 @@
+{
+  "name": "aws-web-gui",
+  "version": "1.0.0",
+  "description": "GUI for Visualize AWS Resources",
+  "homepage": "https://github.com/daiweilu/aws-web-gui",
+  "authors": [
+    "Daiwei <daiweilu123@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "fetch": "~0.7.0",
+    "react": "~0.13.2"
+  }
+}

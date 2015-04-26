@@ -22,5 +22,7 @@ for (let i = 0; i < apiRouters.length; i++) {
 const webConf = config.get('web');
 
 http.createServer(app).listen(webConf.port, webConf.hostname, function () {
-  console.log(`Web running at http://${webConf.hostname}:${webConf.port}`);
+  var host = webConf.hostname === '0.0.0.0' ? 'localhost' : webConf.hostname;
+  console.log('Web server started');
+  console.log(`Listening at http://${host}:${webConf.port}`);
 });
