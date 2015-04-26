@@ -14,6 +14,7 @@ const app = express();
 
 app.set('x-powered-by', false);
 app.use(morgan('dev'));
+app.use(express.static('public'));
 
 for (let i = 0; i < apiRouters.length; i++) {
   app.use('/api/v1', apiRouters[i]);
