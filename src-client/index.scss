@@ -3,3 +3,35 @@
 html, body, .root {
   height: 100%;
 }
+
+$gray: rgba(128, 128, 128, 1);
+
+.o-resource {
+  cursor: pointer;
+  &:hover {
+    .o-resource-box {
+      fill: rgba($gray, 0.1);
+    }
+  }
+}
+
+.o-resource-box {
+  stroke: $gray;
+  stroke-width: 1px;
+  fill: transparent;
+  transition: fill 200ms;
+}
+
+.o-resource-name {
+  font-family: Helvetica Neue, Arial;
+  font-weight: 300;
+  font-size: 18px;
+  fill: black;
+}
+
+.o-resource-type {
+  font-family: Helvetica Neue, Arial;
+  font-weight: 300;
+  font-size: 32px;
+  fill: $gray;
+}

@@ -1,8 +1,8 @@
 'use strict';
 
-const fetch = require('fetch');
-const React = require('react');
-const App   = require('./component/app');
+var fetch = require('fetch');
+var React = require('react');
+var App   = require('./component/app');
 
 React.render(
   <App />,

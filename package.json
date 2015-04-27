@@ -10,11 +10,11 @@
     "build:reset": "rm -rf public && mkdir -p public",
     "build:html": "swig render src-client/index.html > public/index.html",
     "build:css": "node-sass -o public/ src-client/*.scss",
-    "build:js": "browserify -t [ reactify --es6 --target es5 ] -t debowerify -e src-client/index.js > public/index.js",
+    "build:js": "browserify -t reactify -t debowerify -e src-client/index.js > public/index.js",
     "build": "npm run build:reset && npm run build:html && npm run build:css && npm run build:js",
     "watch:html": "onchange 'src-client/**/*.html' -- npm run build:html",
     "watch:css": "node-sass -w -r -o public/ src-client/",
-    "watch:js": "watchify src-client/index.js -v -t [ reactify --es6 --target es5 ] -t debowerify -o public/index.js",
+    "watch:js": "watchify src-client/index.js -v -t reactify -t debowerify -o public/index.js",
     "predev": "npm run build",
     "dev": "npm run watch:html & npm run watch:css & npm run watch:js & node script/live-reload.js"
   },
